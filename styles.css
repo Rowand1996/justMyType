@@ -17,7 +17,7 @@
   padding:0;
   width: 17px;
   height: 20px;
-  background-color: yellow;
+  background-color: limegreen;
 }
 
 .keyboard-container {
@@ -53,5 +53,12 @@
 }
 
 .yellow {
-  background-color:yellow;
+  background-color: yellow;
 }
+
+#gameReset {
+  position: absolute;
+  margin-left: 24em;
+  margin-top:.5em;
+}
+

@@ -46,7 +46,7 @@ $(document).keypress(function (e) {
             end();
         }
         setTimeout(function () {
-            $("#feedback").html("<button onclick='gameReset()'>Reset Game</button>");
+            $("#feedback").html("<button id='gameReset' onclick='gameReset()'>Play Again?</button>");
         }, 3000);
         return;
     }
