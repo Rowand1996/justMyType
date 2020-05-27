@@ -22,59 +22,87 @@ $(document).keyup(function (e) {
         $(".key").removeClass("yellow");
     }
 });
-
-$(document).keypress(function (e) {
-    if (e.which == e.keyCode) {
-        $("#" + e.keyCode).toggleClass("yellow");
-    }
-});
-let sentenceCount = 0;
+let nudge = 34;
+let keyPressCount = 0;
 let count = 0;
-// FIXME: The count should increment once you get to the end of the sentence therefore there should be a check that will conditionally loop this forEach
-// String(sentences[count])
-//     .split('')
-//     .forEach((el) =>
-//         $('#sentence').append(function () {
-//             const characterSpan = document.createElement('span');
-//             characterSpan.innerText = el;
-//             return characterSpan;
-//         })
-//     );
-$('#sentence').html(sentences[count]);
+let startTime = null;
+let endTime = null;
+let numberOfMistakes = 0;
+let numberOfWords = 54;
 
-let nudge = 36;
+if(sentences[count].charAt(0)){
+    $("#target-letter").html("<h1>" + sentences[count].charAt(0) + "</h1>");
+}
+
 $(document).keypress(function (e) {
-    if(count === 5){
+
+    
+    if (startTime === null) {
+        start();
+    }
+
+    if (count === 5) {
+        if(endTime === null) {
+            end();
+        }
+        setTimeout(function () {
+            $("#feedback").html("<button onclick='gameReset()'>Reset Game</button>");
+        }, 3000);
         return;
     }
-    sentenceCount++;
 
-    console.log(sentenceCount);
-    if (sentenceCount === sentences[count].length + 1) {
+    $("#target-letter").html("<h1>" + sentences[count].charAt(keyPressCount + 1) + "</h1>");
+
+    if (e.key === sentences[count].charAt(keyPressCount)) {
+        $("#feedback").append('<span class="glyphicon glyphicon-ok"></span>');
+    }
+    else {
+        $("#feedback").append('<span class="glyphicon glyphicon-remove"></span>');
+        numberOfMistakes++
+    }
+    keyPressCount++; // keyPressCount
+
+    if (keyPressCount === sentences[count].length) {
         count++;
-        sentenceCount = 0;
-        nudge = 15;
+        keyPressCount = 0;
+        nudge = 16;
+        $("#feedback").empty();
         $("#sentence").html(sentences[count]);
-
     }
     if (e.which == e.keyCode) {
-        console.log(e.key);
-        $('#' + e.keyCode).toggleClass('yellow');
+        $("#" + e.keyCode).toggleClass("yellow");
+
         $('#yellow-block').css({
             left: nudge,
         });
-     
-        nudge += 17;
-       
-        $('#target-letter').append(function () {
 
-        });
-       
-        $('#feedback').append(function () {
-            if ('end of sentence') {
-            } else if ('correct') {
-            } else if ('incorrect') {
-            }
-        });
+        nudge += 17;
     }
 });
+
+function start() {
+    startTime = new Date();
+};
+
+function end() {
+    endTime = new Date();
+    var timeDiff = endTime - startTime; //in ms
+    // strip the ms
+    timeDiff /= 1000;
+
+    // get seconds 
+    var seconds = Math.round(timeDiff);
+    let newMinutes = seconds / 60;
+    let wordsPerMinute = Math.round(numberOfWords / newMinutes - 2 * numberOfMistakes);
+    $("#target-letter").html("<p> Words Per Minute: " + wordsPerMinute + "</p>");
+}
+
+function gameReset(){
+    document.location.reload();
+}
+
+$('#sentence').html(sentences[count]);
+
+
+
+

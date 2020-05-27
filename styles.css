@@ -5,15 +5,18 @@
 
 #prompt-container {
   font-family: Courier New, Courier, monospace;
+  font: monospace;
   font-size: 24px;
   letter-spacing: 3px;
 }
 
 #yellow-block {
   position: absolute;
-  margin-top: 10px;
-  width: 15px;
-  height: 15px;
+  margin-top: 8px;
+  margin-left: 0px;
+  padding:0;
+  width: 17px;
+  height: 20px;
   background-color: yellow;
 }
 
@@ -34,7 +37,8 @@
   font-size: 20px;
 }
 .glyphicon-ok {
-  color: #1DA237
+  color: #1DA237;
+  content:"\e013";
 }
 
 .glyphicon-remove {
