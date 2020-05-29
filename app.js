@@ -51,32 +51,50 @@ $(document).keypress(function (e) {
         return;
     }
 
-    $("#target-letter").html("<h1>" + sentences[count].charAt(keyPressCount + 1) + "</h1>");
+    // $("#target-letter").html("<h1>" + sentences[count].charAt(keyPressCount + 1) + "</h1>");
+
+    
 
     if (e.key === sentences[count].charAt(keyPressCount)) {
         $("#feedback").append('<span class="glyphicon glyphicon-ok"></span>');
-    }
-    else {
-        $("#feedback").append('<span class="glyphicon glyphicon-remove"></span>');
-        numberOfMistakes++
-    }
-    keyPressCount++; // keyPressCount
-
-    if (keyPressCount === sentences[count].length) {
-        count++;
-        keyPressCount = 0;
-        nudge = 16;
-        $("#feedback").empty();
-        $("#sentence").html(sentences[count]);
-    }
-    if (e.which == e.keyCode) {
-        $("#" + e.keyCode).toggleClass("yellow");
-
+        $("#target-letter").html("<h1>" + sentences[count].charAt(keyPressCount + 1) + "</h1>");
         $('#yellow-block').css({
             left: nudge,
         });
 
         nudge += 17;
+        keyPressCount++;
+        console.log(keyPressCount);
+    }
+    else {
+        $("#feedback").append('<span class="glyphicon glyphicon-remove"></span>');
+        numberOfMistakes++
+    }
+    // keyPressCount++; // keyPressCount
+
+    if (keyPressCount === sentences[count].length) {
+        console.log("reached end of line!");
+        count++;
+        keyPressCount = 0;
+        nudge = 17;
+        $('#yellow-block').css({
+            left: nudge,
+        });
+        $("#feedback").empty();
+        $("#sentence").html(sentences[count]);
+    }
+    else {
+        console.log("didnt reach end of the line");
+    }
+
+    if (e.which == e.keyCode) {
+        $("#" + e.keyCode).toggleClass("yellow");
+
+        // $('#yellow-block').css({
+        //     left: nudge,
+        // });
+
+        // nudge += 17;
     }
 });
 
