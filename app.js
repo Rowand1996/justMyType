@@ -22,7 +22,7 @@ $(document).keyup(function (e) {
         $(".key").removeClass("yellow");
     }
 });
-let nudge = 34;
+let nudge = 17;
 let keyPressCount = 0;
 let count = 0;
 let startTime = null;
@@ -58,11 +58,12 @@ $(document).keypress(function (e) {
     if (e.key === sentences[count].charAt(keyPressCount)) {
         $("#feedback").append('<span class="glyphicon glyphicon-ok"></span>');
         $("#target-letter").html("<h1>" + sentences[count].charAt(keyPressCount + 1) + "</h1>");
+        nudge += 17;
         $('#yellow-block').css({
             left: nudge,
         });
-
-        nudge += 17;
+        
+        
         keyPressCount++;
         console.log(keyPressCount);
     }
@@ -89,12 +90,6 @@ $(document).keypress(function (e) {
 
     if (e.which == e.keyCode) {
         $("#" + e.keyCode).toggleClass("yellow");
-
-        // $('#yellow-block').css({
-        //     left: nudge,
-        // });
-
-        // nudge += 17;
     }
 });
 
