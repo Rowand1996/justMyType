@@ -36,7 +36,6 @@ if(sentences[count].charAt(0)){
 
 $(document).keypress(function (e) {
 
-    
     if (startTime === null) {
         start();
     }
@@ -65,7 +64,6 @@ $(document).keypress(function (e) {
         
         
         keyPressCount++;
-        console.log(keyPressCount);
     }
     else {
         $("#feedback").append('<span class="glyphicon glyphicon-remove"></span>');
@@ -74,7 +72,6 @@ $(document).keypress(function (e) {
     // keyPressCount++; // keyPressCount
 
     if (keyPressCount === sentences[count].length) {
-        console.log("reached end of line!");
         count++;
         keyPressCount = 0;
         nudge = 17;
@@ -83,9 +80,6 @@ $(document).keypress(function (e) {
         });
         $("#feedback").empty();
         $("#sentence").html(sentences[count]);
-    }
-    else {
-        console.log("didnt reach end of the line");
     }
 
     if (e.which == e.keyCode) {
